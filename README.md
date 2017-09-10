@@ -229,13 +229,12 @@ import React, { Component } from 'react';
 
   Then you need to create a new class App that extends Component. All stateful components require 2 main methods: the consturctor and the render methods.
 
-  In the constructor we always need to include super() since we are extending from a class, and our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
+  In the constructor we need to declare our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
 
   ```javascript
 
   class App extends Component {
     constructor() {
-      super();
       this.state = {};
     }
   }
@@ -250,7 +249,6 @@ Anything after the return keyword has to be jsx. That means we can do regular ja
 
   class App extends Component {
   consturctor() {
-    super();
     this.state = {};
   }
 
@@ -274,7 +272,6 @@ import './styles/App.css';
 
 class App extends Component {
   consturctor() {
-    super();
     this.state = {};
   }
 
@@ -322,3 +319,174 @@ Here are some comments on the styles we added:
 # PART 3
 
 To start in this point clone the branch 'part3' of this [repo](https://github.com/jdiejim/pokedex-blog)
+
+## Stateless Components
+
+In **src** Go to your componets folder and create a PokeList.js file. Then go to your stlyes folder and create a PokeList.css file.
+
+```shell
+
+cd src/components/
+touch PokeList.js styles/PokeList.css
+
+```
+
+Stateless components have a shorter setup. Since they don't have state we don't use the Component class so we only need to import the React package.
+
+```javascript
+
+import React from 'react';
+
+```
+
+Then, instead of creating a new class, we create a regular arrow function, and return the jsx that we want to render. 
+
+Then, lets import the styles at the top of the file, and export our PokeList function.
+
+``` javascript
+
+import React from 'react';
+import './styles/PokeList.css';
+
+const PokeList = () => {
+  return (
+    <section className="poke-list">
+
+    </section>
+  )
+}
+
+export default PokeList;
+
+```
+Lets add some style to our PokeList in the css file
+
+```css
+
+.poke-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  height: 80%;
+  padding: 10px;
+  margin-right: 10px;
+  background-color: #BFF9FF;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: scroll;
+}
+
+```
+
+Notes on style:
+
+* We are using display flex againg to take advantage of the wrap functioanlity since we are going to wrap cell buttons inside.
+* We set the width to 50% to fill the left half of the app component
+* we also included overflow scroll because not all of the pokecells are going to be displayed at once.
+
+Finally go back to App.js and import the PokeList component. To render it, you need to place it inside the parent element in the render method as a self closing html tag. This is other feature React and jsx gives us. All the components you want to render are place like html tags. Cool right!
+
+```javascript
+
+import React, { Component } from 'react';
+import PokeList from './PokeList';
+import './styles/App.css';
+
+class App extends Component {
+  consturctor() {
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <PokeList />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
+
+![prelist](./screenshots/prelist.png)
+
+## PokeCell
+
+The next step is to populate our list with pokecells, but first we need to build our PokeCell component. This component will act as a template for all of the 150 pokemons that we are going to render in PokeList.
+
+In **src** Go to your componets folder and create a PokeCell.js file. Then go to your stlyes folder and create a PokeCell.css file.
+
+```shell
+
+cd src/components/
+touch PokeCell.js styles/PokeCell.css
+
+```
+
+Open PokeCell.js and add the stateless setup. Since we are returning only one element we can avoid the parentheses.
+
+```javascript
+
+import React from 'react';
+import './styles/PokeCell.css';
+
+const PokeCell = () => {
+  return <button className="poke-cell"></button>;
+};
+
+export default PokeCell;
+
+```
+
+Then import it in PokeList.js and render some cells in the list by placing them inside the parent element as an html elements.
+
+```javascript
+
+import React from 'react';
+import PokeCell from './PokeCell';
+import './styles/PokeList.css';
+
+const PokeList = () => {
+  return (
+    <section className="poke-list">
+      <PokeCell />
+      <PokeCell />
+      <PokeCell />
+      <PokeCell />
+      <PokeCell />
+      <PokeCell />
+    </section>
+  )
+}
+
+export default PokeList;
+
+```
+
+Finally, lets add some style to our PokeCells in the css file.
+
+```css
+
+.poke-cell {
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+  background-color: #FFF;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+}
+
+```
+
+Notes on PokeCell style:
+
+* We set the background-repeat to no-repeat for the background image we are going to put later in the tutorial
+
+## Sprites and Array Rendering
+
+For this part of the tutorial please download the following resources: [sprites]() and [pokeClasses]()
