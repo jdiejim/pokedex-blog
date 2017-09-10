@@ -211,5 +211,36 @@ The detail view will be only be its own component containing different elements.
 
 ## Main Layout
 
-Now that we have our wireframe and our project setup lets begin setting the main app component and styling.
+Now that we are done with our wireframe and our project setup lets begin setting the main app component.
 
+First lets add some styling to our App. Open App.css and add this code to it:
+
+```css
+
+.App {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  width: 650px;
+  height: 400px;
+  padding-left: 10px;
+  margin: 50px auto;
+  background-color: #FE0065;
+  border-radius: 10px;
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.22), 0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+```
+
+Here are some comments on the styles we added:
+
+* We use display flex to separate the 2 views we are going to be building
+* We fixed our width and height for our desktop display
+* We apply some top and bottom margin to separate the view from the corners and auto left and right to place it in the middle
+* Finally we applied a red color to the background
+
+![mainLayout](./screenshots/mainLayout.png)
+
+PART 3
+
+To start in this point clone the branch 'part3' of this [repo]()
