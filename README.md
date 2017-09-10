@@ -534,9 +534,9 @@ export default PokeList;
 ```
 We are going to map the pokeClasses inside our function to convert each element into a PokeCell component! Then we will assign the new array from the map to a new variable called cells.
 
-In React, components can pass values to their children as props. Props look like html tag attributes and are placed between the opening and clossing tags. We can name the props any way we want, and pass any variable type (string, number, object, function) we want as well.
+In React, components can pass values to their children as props. Props look like html tag attributes and are placed between the opening and clossing tags. We can name the props any way we want, and pass any variable type (string, number, object, function).
 
-In this case we need to pass the pokeClass information as props to each of the PokeCells that we are creating. The firts prop we need to pass is called keys. This is the only required prop react tells us to include everytime we create an array of components. This key prop needs to have a unique value since React uses it on the background to make optimizations. Lucky for us, each poke class contains an id value.
+In this case we need to pass the pokeClass information as props to each of the PokeCells that we are creating. The firts prop we need to pass is called keys. This is the only required prop react tells us to include everytime we create an array of components. This key prop needs to have a unique value since React uses it on the background to make optimizations. Lucky for us, each pokeClass contains an id value.
 
 The next prop we are going to pass is called pokeClass, and is the current element of the pokeClasses array. One important thing to mention is that everytime we want to include regular javascript in the jsx section we need to wrap it with curly braces.
 The end result will look like this:
@@ -620,7 +620,46 @@ const PokeCell = ({ pokeClass }) => {
 
 ```
 
-Next import the sprites image at the top of the file. React lets us write in-line styling by defining and object that has css properties written in camelCase format. Now that we have both the sprites image and the background position we can create a new style object with both properites. For the backgorundsImage property we need to specify the path of the image. Luckily, by importing the image we can pass the sprites variable we defined when we imported it as the url parameter. Next we can include the backgroundPosition property by assigning it the value of the variable we deconstructer earlir from pokeClass. Finally we can add the in-line style object to the html element like this:
+Next, import the sprites image at the top of the file. 
+
+```javascript
+
+import sprites from '../assets/sprites.png';
+
+```
+
+To add the sprite as a background image, we are going to use in-line styling on the buttotn element.
+
+First create a new styles object with two properties: backgroundImage and backgroundPosition. Notice that the css properties are written in camelCase instead of the regular format. This is because we are using javascript to add the in-line styling.
+
+```javascript
+
+import React from 'react';
+import sprites from '../assets/sprites.png';
+import './styles/PokeCell.css';
+
+const PokeCell = ({ pokeClass }) => {
+  const { id, backgroundPosition } = pokeClass;
+  const style = { backgroundImage: '', backgroundPosition: '' };
+
+  return <button className="poke-cell"></button>
+};
+
+export default PokeCell;
+ 
+ ```
+
+For the backgroundImage key, replace the empty string with the following code:
+
+```javascript
+
+  const style = { backgroundImage: `url(${sprites})`, backgroundPosition: '' };
+
+```
+
+Here we are placing the imported sprite image into the css url function. If you console log the sprites image, you will see that it will log the path of the image. We have to do this because this is how React is able to recognize the path of the image.
+
+Next we can include the backgroundPosition property by assigning it the value of the variable we deconstructed earlier from pokeClass. Since they share the same name, we can just delete the string and semicolon. Finally we can add the in-line style object to the html element like this:
 
 ```javascript
 
@@ -639,7 +678,7 @@ export default PokeCell;
 
 ```
 
-Wow! That was a lot, but trust me, it is worth it, and this is the only section that is kind of confusing. Ok, go ahead and check the browser to see the result.
+Wow! That was a lot, but trust me, it was worth it, and this is the only section that is kind of confusing. Ok, go ahead and check the browser to see the result.
 
 ![finalPokeView](./screenshots/finalPokeView.png)
 
