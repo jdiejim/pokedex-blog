@@ -18,7 +18,7 @@ To get the basic project setup you can clone the branch 'basic' of this [repo](h
 
 ## Create React App Installation
 
-You’ll need to have [Node(https://nodejs.org/en/)] >= 6 on your machine in order to install [create-react-app](https://github.com/facebookincubator/create-react-app).
+You’ll need to have [Node](https://nodejs.org/en/) >= 6 on your machine in order to install [create-react-app](https://github.com/facebookincubator/create-react-app).
 
 Once Node is installed, proceed to install the create-react-app package globally:
 
@@ -52,7 +52,7 @@ src
 
 ```
 
-This is where we are going to tweak some files to make it more dynamic. Move into **src**, and lets start modifying some files.
+This is where we are going to tweak some files to make it more dynamic and easier to import and export files. Move into **src**, and lets start modifying some files.
 
 ```Shell
 
@@ -228,14 +228,16 @@ import React, { Component } from 'react';
 
   ```
 
-  Then you need to create a new class App that extends Component. All stateful components require 2 main methods: the consturctor and the render methods.
+  Then you need to create a new class App that extends Component. All stateful components require 2 main methods: the constructor and the 
+  super();render methods.
 
-  In the constructor we need to declare our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
+  In the constructor we always have to call the super() function since we are extending from the component class. Additionaly, we also need to declare our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
 
   ```javascript
 
   class App extends Component {
     constructor() {
+      super();
       this.state = {};
     }
   }
@@ -249,7 +251,8 @@ Anything after the return keyword has to be jsx. That means we can do regular ja
  ```javascript
 
   class App extends Component {
-  consturctor() {
+  constructor() {
+    super();
     this.state = {};
   }
 
@@ -272,7 +275,8 @@ import React, { Component } from 'react';
 import './styles/App.css';
 
 class App extends Component {
-  consturctor() {
+  constructor() {
+    super();
     this.state = {};
   }
 
@@ -395,7 +399,8 @@ import PokeList from './PokeList';
 import './styles/App.css';
 
 class App extends Component {
-  consturctor() {
+  constructor() {
+    super();
     this.state = {};
   }
 
@@ -727,11 +732,11 @@ import './styles/DetailView.css';
 const DetailView = () => {
   return (
     <section className="detail-view">
-      <div className='sprite-image'></div>
+      <img src={sprite} className='sprite-image'/>
       <div className='data-wrapper'>
         <h1 className='data-name'></h1>
-        <p className='data-char'>id:</p>
-        <p className='data-char'>Type:</p>
+        <p className='data-char'></p>
+        <p className='data-char'></p>
       </div>
     </section>
   )
@@ -762,9 +767,6 @@ Lets also add some style to our DetailView in the css file.
   height: 150px;
   margin: 10px auto;
   background-color: #585858;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
   border: 15px solid #DEDEDE;
   border-radius: 5px;
 }
@@ -790,6 +792,11 @@ Lets also add some style to our DetailView in the css file.
 
 ```
 
+Notes on the style and elements:
+
+* sprite-image will contain the selected pokemon sprite
+* the data-char class refers to the characterstics of the pokemon (id, type, abilities)
+
 Next go back to App and import DetailView. Finally, render it by placing it inside the parent element.
 
 ```javascript
@@ -800,7 +807,8 @@ import DetailView from './DetailView';
 import './styles/App.css';
 
 class App extends Component {
-  consturctor() {
+  constructor() {
+    super();
     this.state = {};
   }
 
@@ -817,3 +825,6 @@ class App extends Component {
 export default App;
 
 ```
+
+![finalDetailView](./screenshots/finalDetailView.png)
+
