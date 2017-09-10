@@ -118,7 +118,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      
+        Hello World I am a Pokedex
       </div>
     );
   }
@@ -128,7 +128,36 @@ export default App;
 
 ```
 
-Finally, delete all the contents inside App.css
+Open App.css and delete all the contents inside. We are going to write our own styling so don't worry. 
+
+Finally replace all the contents on your index.js with the following code:
+
+```javascript
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './components/App';
+import registerServiceWorker from './registerServiceWorker';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+registerServiceWorker();
+
+```
+
+The only change we made here was changing the path of the App component.
+
+We are not going to add anything else to **index.js** in this project. However, is always good to know what is this file doing. This file basically is telling the DOM to render the App component in the element with the id of root found in the html file. App will contain all of our components that we are going to be building.
+
+Ok! We are done with the setup. Lets try it out. To star our application write this command in your terminal:
+
+```shell
+
+npm start
+
+```
+
+This will start our application in the browser in development mode. Now everytime we edit our project you are going to be able to see your changes in the browser. If you have and error, the browser most of the times will show you where the bug is located.
 
 # Part 2
 
@@ -153,3 +182,8 @@ The pokemon view will contain a scrollable **poke list component** that wraps al
 The detail view will be only be its own component containing different elements.
 
 ![detailView](./screenshots/detailView.png)
+
+## Main Layout
+
+Now that we have our wireframe and our project setup lets begin setting the main app component and styling.
+
