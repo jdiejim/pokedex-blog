@@ -130,6 +130,32 @@ export default App;
 
 Open App.css and delete all the contents inside. We are going to write our own styling so don't worry. 
 
+Open index.css and replace all contents inside with this code:
+
+```css
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Avenir Next', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+```
+
+In this app, **index.css** will be used to serve styles at the top level. In this case we want all elements to have box sizing of border box, and we also want to apply some normailzation to other elements.
+
 Finally replace all the contents on your index.js with the following code:
 
 ```javascript
