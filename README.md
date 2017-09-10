@@ -13,7 +13,7 @@ Without further ado, lets start coding.
 
 # PART 1
 
-To get the basic project setup you can clone the boilerplate branch of this [repo](https://github.com/jdiejim/pokedex-blog) or continue to follow the basic installation.
+To get the basic project setup you can clone the branch 'basic' of this [repo](https://github.com/jdiejim/pokedex-blog) or continue to follow the basic installation.
 
 ## Create React App Installation
 
@@ -185,7 +185,7 @@ npm start
 
 This will start our application in the browser in development mode. Now everytime we edit our project you are going to be able to see your changes in the browser. If you have and error, the browser most of the times will show you where the bug is located.
 
-# Part 2
+# PART 2
 
 ## WireFrame
 
@@ -241,6 +241,6 @@ Here are some comments on the styles we added:
 
 ![mainLayout](./screenshots/mainLayout.png)
 
-PART 3
+# PART 3
 
-To start in this point clone the branch 'part3' of this [repo]()
+To start in this point clone the branch 'part3' of this [repo](https://github.com/jdiejim/pokedex-blog)
