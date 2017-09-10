@@ -4,10 +4,10 @@ import { pokeClasses } from '../pokeClasses';
 import './styles/PokeList.css';
 
 const PokeList = () => {
-  const cells = pokeClasses.map(poke => {
-    return <PokeCell key={poke.id} id={poke.id} backgroundPosition={poke.backgroundPosition} />
+  const cells = pokeClasses.map(pokeClass => {
+    return <PokeCell key={pokeClass.id} pokeClass={pokeClass} />
   });
-  
+
   return (
     <section className="poke-list">
       {cells}

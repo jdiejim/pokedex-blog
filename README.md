@@ -8,6 +8,7 @@ We are going to be using the [PokeApi](http://pokeapi.co/) to get all our resour
 * **PART 2** we will begin making our wireframes and main layout
 * **PART 3** we will build the Pokemon view
 * **PART 4** we will build the Detail view
+* **PART 5** we will connect all the views
 
 Without further ado, lets start coding.
 
@@ -489,4 +490,156 @@ Notes on PokeCell style:
 
 ## Sprites and Array Rendering
 
-For this part of the tutorial please download the following resources: [sprites]() and [pokeClasses]()
+This section might be a little confusing, but I promise it is worth it. 
+
+For this part of the tutorial please download the following resources: [sprites](https://github.com/jdiejim/pokedex-blog/blob/master/src/assets/sprites.png) and [pokeClasses](https://github.com/jdiejim/pokedex-blog/blob/master/src/pokeClasses.js)
+
+The sprites image is a collection of images of the first 151 pokemon. We are going to display each sprite in each PokeCell using css and background position. This background positions can be found in the pokeClasses.js file that I provided.
+
+The pokeClasses.js file is an array of objects containing the pokemon id and the background position of each sprite.
+
+Ok. Lets move on.
+
+Create an **assets** directory and place it in **src**. Then place the sprites image inside assets
+
+```Shell
+
+cd src
+mkdir assets
+
+```
+
+Then place the pokeClasses.js file inside **src**.
+
+Now for the fun part.
+
+Go to PokeList.js and import the pokeClasses array.
+
+```javascript
+
+import React from 'react';
+import PokeCell from './PokeCell';
+import { pokeClasses } from '../pokeClasses';
+import './styles/PokeList.css';
+
+const PokeList = () => {
+  return (
+    <section className="poke-list">
+    </section>
+  )
+}
+
+export default PokeList;
+
+```
+We are going to map the pokeClasses inside our function to convert each element into a PokeCell component! Then we will assign the new array from the map to a new variable called cells.
+
+In React, components can pass values to their children as props. Props look like html tag attributes and are placed between the opening and clossing tags. We can name the props any way we want, and pass any variable type (string, number, object, function) we want as well.
+
+In this case we need to pass the pokeClass information as props to each of the PokeCells that we are creating. The firts prop we need to pass is called keys. This is the only required prop react tells us to include everytime we create an array of components. This key prop needs to have a unique value since React uses it on the background to make optimizations. Lucky for us, each poke class contains an id value.
+
+The next prop we are going to pass is called pokeClass, and is the current element of the pokeClasses array. One important thing to mention is that everytime we want to include regular javascript in the jsx section we need to wrap it with curly braces.
+The end result will look like this:
+
+```javascript
+
+import React from 'react';
+import PokeCell from './PokeCell';
+import { pokeClasses } from '../pokeClasses';
+import './styles/PokeList.css';
+
+const PokeList = () => {
+  const cells = pokeClasses.map(pokeClass => <PokeCell key={pokeClass.id} pokeClass={pokeClass}/>)
+  return (
+    <section className="poke-list">
+    </section>
+  )
+}
+
+export default PokeList;
+
+```
+
+Now that we have our cells array of PokeCell components we can render it by placing the cells variable inside the parent element wrapped in curly braces:
+
+```javascript
+
+import React from 'react';
+import PokeCell from './PokeCell';
+import { pokeClasses } from '../pokeClasses';
+import './styles/PokeList.css';
+
+const PokeList = () => {
+  const cells = pokeClasses.map(pokeClass => <PokeCell key={pokeClass.id} pokeClass={pokeClass}/>)
+  return (
+    <section className="poke-list">
+    {cells}
+    </section>
+  )
+}
+
+export default PokeList;
+
+```
+
+Cool right?! Insead of manually placing each PokeCell inside the parent element, we can just place the array and React appends each of the PokeCells to the list component.
+
+## Rendering Sprites
+
+Remeber that we passed to each of the PokeCell componets its own pokeClass. Now we can use this data to determine the position of the sprite in the sprite image, and render the image on each cell.
+
+Go to the PokeCell.js file and pass in props as an argument.
+
+```javascript
+
+const PokeCell = (props) => {
+  return <button className="poke-cell"></button>
+};
+
+```
+
+Since we know that props contains a pokeClass object, we can deconstruct it from the props argument.
+
+```javascript
+
+const PokeCell = ({ pokeClass }) => {
+  return <button className="poke-cell"></button>
+};
+
+```
+
+Then lets deconstuct the properties from the pokeClass itself and assign them to their own variable.
+
+```javascript
+
+const PokeCell = ({ pokeClass }) => {
+  const { id, backgroundPosition } = pokeClass;
+
+  return <button className="poke-cell"></button>
+};
+
+```
+
+Next import the sprites image at the top of the file. React lets us write in-line styling by defining and object that has css properties written in camelCase format. Now that we have both the sprites image and the background position we can create a new style object with both properites. For the backgorundsImage property we need to specify the path of the image. Luckily, by importing the image we can pass the sprites variable we defined when we imported it as the url parameter. Next we can include the backgroundPosition property by assigning it the value of the variable we deconstructer earlir from pokeClass. Finally we can add the in-line style object to the html element like this:
+
+```javascript
+
+import React from 'react';
+import sprites from '../assets/sprites.png';
+import './styles/PokeCell.css';
+
+const PokeCell = ({ pokeClass }) => {
+  const { id, backgroundPosition } = pokeClass;
+  const style = { backgroundImage: `url(${sprites})`, backgroundPosition };
+
+  return <button style={style} className="poke-cell"></button>
+};
+
+export default PokeCell;
+
+```
+
+Wow! That was a lot, but trust me, it is worth it, and this is the only section that is kind of confusing. Ok, go ahead and check the browser to see the result.
+
+![finalPokeView](./screenshots/finalPokeView.png)
+
