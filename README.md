@@ -682,3 +682,138 @@ Wow! That was a lot, but trust me, it was worth it, and this is the only section
 
 ![finalPokeView](./screenshots/finalPokeView.png)
 
+# PART 4
+
+To start in this point clone the branch 'part4' of this [repo](https://github.com/jdiejim/pokedex-blog)
+
+
+## Detail View
+
+In **src** Go to your componets folder and create a DetailView.js file. Then go to your stlyes folder and create a DetailView.css file.
+
+```shell
+
+cd src/components/
+touch DetailView.js styles/DetailView.css
+
+```
+
+Next, setup a stateless comopents and call it DetailView.
+
+``` javascript
+
+import React from 'react';
+import './styles/DetailView.css';
+
+const DetailView = () => {
+  return (
+    <section className="detail-view">
+
+    </section>
+  )
+}
+
+export default DetailView;
+
+```
+
+Add some elements to display the data and image.
+
+```javascript
+
+import React from 'react';
+import './styles/DetailView.css';
+
+const DetailView = () => {
+  return (
+    <section className="detail-view">
+      <div className='sprite-image'></div>
+      <div className='data-wrapper'>
+        <h1 className='data-name'></h1>
+        <p className='data-char'>id:</p>
+        <p className='data-char'>Type:</p>
+      </div>
+    </section>
+  )
+}
+
+export default DetailView;
+
+```
+
+Lets also add some style to our DetailView in the css file.
+
+```css
+
+.detail-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  padding: 10px;
+  background-color: #df095e;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.sprite-image {
+  width: 80%;
+  height: 150px;
+  margin: 10px auto;
+  background-color: #585858;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 15px solid #DEDEDE;
+  border-radius: 5px;
+}
+
+.data-wrapper {
+  width: 80%;
+  height: 110px;
+  padding: 10px;
+  margin: 0 auto;
+  background-color: #585858;
+  border-radius: 5px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.22);
+  color: #FFF;
+}
+
+.data-name {
+  margin: 0 0 5px;
+}
+
+.data-char {
+  font-size: 10px;
+}
+
+```
+
+Next go back to App and import DetailView. Finally, render it by placing it inside the parent element.
+
+```javascript
+
+import React, { Component } from 'react';
+import PokeList from './PokeList';
+import DetailView from './DetailView';
+import './styles/App.css';
+
+class App extends Component {
+  consturctor() {
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <PokeList />
+        <DetailView />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
