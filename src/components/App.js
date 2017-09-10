@@ -3,7 +3,6 @@ import './styles/App.css';
 
 class App extends Component {
   consturctor() {
-    super();
     this.state = {};
   }
 
