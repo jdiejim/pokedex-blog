@@ -213,7 +213,85 @@ The detail view will be only be its own component containing different elements.
 
 Now that we are done with our wireframe and our project setup lets begin setting the main app component.
 
-First lets add some styling to our App. Open App.css and add this code to it:
+## Component Types
+
+There are 2 basic types of React components: Stateful and Stateless
+
+StateFul, as the name describes it, are componets that have their own state. In our case, App is a stateful component. Lets see in detail how to build the App component. Open App.js and delete all of the contents inside. We are going to code it from start.
+
+The first step is to import the react package, and deconstruct the Component class.
+
+  ```javascript
+
+import React, { Component } from 'react';
+
+  ```
+
+  Then you need to create a new class App that extends Component. All stateful components require 2 main methods: the consturctor and the render methods.
+
+  In the constructor we always need to include super() since we are extending from a class, and our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
+
+  ```javascript
+
+  class App extends Component {
+    constructor() {
+      super();
+      this.state = {};
+    }
+  }
+
+  ```
+
+Next add the render method. This method always returns jsx syntax, which is a mix between javscript and html. The render method only can return one element so we need to create a parent element and nest children inside. If we are returning a nested element we need to wrap it with a parentheses. 
+
+Anything after the return keyword has to be jsx. That means we can do regular javascript before the return keyword.
+
+ ```javascript
+
+  class App extends Component {
+  consturctor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className="App">
+        
+      </div>
+    );
+  }
+}
+
+  ```
+
+Finally, we need to import our stylesheet at the top to add the styles of our component, and export the whole class so we can use it in other files.
+
+```javascript
+
+import React, { Component } from 'react';
+import './styles/App.css';
+
+class App extends Component {
+  consturctor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className="App">
+        
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
+
+Open your App.css file and add this styles to it:
 
 ```css
 
