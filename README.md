@@ -229,13 +229,12 @@ import React, { Component } from 'react';
 
   Then you need to create a new class App that extends Component. All stateful components require 2 main methods: the consturctor and the render methods.
 
-  In the constructor we always need to include super() since we are extending from a class, and our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
+  In the constructor we need to declare our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
 
   ```javascript
 
   class App extends Component {
     constructor() {
-      super();
       this.state = {};
     }
   }
@@ -250,7 +249,6 @@ Anything after the return keyword has to be jsx. That means we can do regular ja
 
   class App extends Component {
   consturctor() {
-    super();
     this.state = {};
   }
 
@@ -274,7 +272,6 @@ import './styles/App.css';
 
 class App extends Component {
   consturctor() {
-    super();
     this.state = {};
   }
 
