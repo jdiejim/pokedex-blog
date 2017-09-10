@@ -13,6 +13,8 @@ Without further ado, lets start coding.
 
 # PART 1
 
+To get the basic project setup you can clone the boilerplate branch of this [repo](https://github.com/jdiejim/pokedex-blog) or continue to follow the basic installation.
+
 ## Create React App Installation
 
 You’ll need to have [Node(https://nodejs.org/en/)] >= 6 on your machine in order to install [create-react-app](https://github.com/facebookincubator/create-react-app).
@@ -151,4 +153,3 @@ The pokemon view will contain a scrollable **poke list component** that wraps al
 The detail view will be only be its own component containing different elements.
 
 ![detailView](./screenshots/detailView.png)
-
