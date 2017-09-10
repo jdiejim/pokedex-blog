@@ -1,14 +1,16 @@
 import React from 'react';
 import './styles/DetailView.css';
 
-const DetailView = () => {
+const DetailView = ({ pokemon }) => {
+  const { id, name, sprite, type } = pokemon;
+
   return (
     <section className="detail-view">
-      <div className='sprite-image'></div>
+      <img src={sprite} className='sprite-image'/>
       <div className='data-wrapper'>
-        <h1 className='data-name'></h1>
-        <p className='data-char'>id:</p>
-        <p className='data-char'>Type:</p>
+        {/* <h1 className='data-name'>{name}</h1>
+        <p className='data-char'>id: {id}</p>
+        <p className='data-char'>Type: {type}</p> */}
       </div>
     </section>
   )
