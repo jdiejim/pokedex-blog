@@ -1,29 +1,27 @@
 # Lets Build a Pokedex with React 
 
-I love building web apps with React. However, learning how to use the library and getting use to thinking in the React way can be difficult. I believe that personal projects are the best way to learn new things, and thus started to build a Pokedex with React. I had a lot of fun building it and learned a lot, so I decided to make this beginner's workshop for new developers interested in learning how to use React.
+I love building web apps with React. However, learning how to use the library and getting used to the React thinking can be difficult. I believe that personal projects are the best way to learn new things, and thus started to build a Pokedex with React. I had a lot of fun building it and learned a lot, so I decided to make this beginners workshop for new developers interested in learning how to use React.
 
-We are going to be using the [PokeApi](http://pokeapi.co/) to get all our resources and pokemon data.
+We are going to be using the [PokeApi](http://pokeapi.co/) to get all our pokemon data and sprites.
 
-* **PART 1** will describe all the file setup
+* **PART 1** describes all the file setup
 * **PART 2** we will begin making our wireframes and main layout
 * **PART 3** we will build the Pokemon view
 * **PART 4** we will build the Detail view
-* **PART 5** we will connect all the views
-* **PART 6** wrap up
+* **PART 5** we will fetch all the data and connect all our views
 
-Without further ado, lets start coding.
+# Without further ado, lets start coding.
 
 # PART 1
 
-To get the basic project setup you can clone the branch 'basic' of this [repo](https://github.com/jdiejim/pokedex-blog) or continue to follow the basic installation.
+If you want to skip the initial setup, clone the “basic” branch of this [repo](https://github.com/jdiejim/pokedex-blog). Otherwise, lets continue with the installation.
 
 ## Create React App Installation
 
-You’ll need to have [Node](https://nodejs.org/en/) >= 6 on your machine in order to install [create-react-app](https://github.com/facebookincubator/create-react-app).
+First you need to install [Node](https://nodejs.org/en/) version ≥ 6 on your machine.
+Once installed, proceed to install the [create-react-app](https://github.com/facebookincubator/create-react-app) package globally with npm.
 
-Once Node is installed, proceed to install the create-react-app package globally:
-
-```shell
+```
 
 npm install -g create-react-app
 
@@ -33,16 +31,17 @@ npm install -g create-react-app
 
 First, create a new pokedex project and move into your new pokedex directory.
 
-```Shell
+```
 
 create-react-app pokedex
+cd pokedex
 
 ```
 
-Inside your pokedex directory you should see a **src** directory that should look like this:
+Inside your pokedex directory you should see a **src** directory that contains the following files:
 
 ```
-src
+src/
 │   App.css
 |   App.js
 │   App.test.js
@@ -53,9 +52,9 @@ src
 
 ```
 
-This is where we are going to tweak some files to make it more dynamic and easier to import and export files. Move into **src**, and lets start modifying some files.
+This is where we are going to tweak some files to make it more dynamic and easier to import/export files. Move into the **src** directory to start modifying some of the files.
 
-```Shell
+```
 
 cd src
 
@@ -63,15 +62,15 @@ cd src
 
 First remove the logo.svg file since we are no longer going to use it. 
 
-```Shell
+```
 
 rm logo.svg
 
 ```
 
-Then create a **test** directory, a **components** directory, and inside the new **components** directory, create a **styles** directory.
+Then create a **test** directory, a **components** directory, and a **styles** directory inside the new **components** directory.
 
-```Shell
+```
 
 mkdir test
 mkdir components
@@ -81,7 +80,7 @@ mkdir components/styles
 
 Then move the App files into their corresponding directories
 
-```Shell
+```
 
 mv App.js components/
 mv App.css components/styles/
@@ -89,7 +88,7 @@ mv App.test.js test/
 
 ```
 
-Your new file structure in **src** should look like this:
+Your new file structure in the **src** directory should look like this:
 
 ```
 src
@@ -156,9 +155,9 @@ p {
 
 ```
 
-In this app, **index.css** will be used to serve styles at the top level. In this case we want all elements to have box sizing of border box, and we also want to apply some normailzation to other elements.
+The **index.css** file will contain all our top level styles. In this case we want all the document’s elements to have box sizing of border box, and we also want to remove the margin for al h1, h2, h3, h4, p tags.
 
-Finally replace all the contents on your index.js with the following code:
+Finally replace all the contents of the **index.js** file with the following code:
 
 ```javascript
 
@@ -174,18 +173,17 @@ registerServiceWorker();
 ```
 
 The only change we made here was changing the path of the App component.
+We are not going to add anything else to **index.js**. However, its important to know what is happening here. This file basically is telling the DOM to render the App component in the element with id of “root”. Our App component will contain all of our components that we are going to build.
 
-We are not going to add anything else to **index.js** in this project. However, is always good to know what is this file doing. This file basically is telling the DOM to render the App component in the element with the id of root found in the html file. App will contain all of our components that we are going to be building.
+Great! We are done with the setup. Lets try it out. To star our application write this command in your terminal:
 
-Ok! We are done with the setup. Lets try it out. To star our application write this command in your terminal:
-
-```shell
+```
 
 npm start
 
 ```
 
-This will start our application in the browser in development mode. Now everytime we edit our project you are going to be able to see your changes in the browser. If you have and error, the browser most of the times will show you where the bug is located.
+This will start our application in the browser in development mode. Now every time we edit our project we are going to see our changes in the browser. If you have an error, the browser will display some information about the type of error and where to find it.
 
 # PART 2
 
@@ -330,7 +328,7 @@ To start at this point clone the branch 'part3' of this [repo](https://github.co
 
 In **src** Go to your componets folder and create a PokeList.js file. Then go to your stlyes folder and create a PokeList.css file.
 
-```shell
+```
 
 cd src/components/
 touch PokeList.js styles/PokeList.css
@@ -426,7 +424,7 @@ The next step is to populate our list with pokecells, but first we need to build
 
 In **src** Go to your componets folder and create a PokeCell.js file. Then go to your stlyes folder and create a PokeCell.css file.
 
-```shell
+```
 
 cd src/components/
 touch PokeCell.js styles/PokeCell.css
@@ -508,7 +506,7 @@ Ok. Lets move on.
 
 Create an **assets** directory and place it in **src**. Then place the sprites image inside assets
 
-```Shell
+```
 
 cd src
 mkdir assets
@@ -697,7 +695,7 @@ To start at this point clone the branch 'part4' of this [repo](https://github.co
 
 In **src** Go to your componets folder and create a DetailView.js file. Then go to your stlyes folder and create a DetailView.css file.
 
-```shell
+```
 
 cd src/components/
 touch DetailView.js styles/DetailView.css
