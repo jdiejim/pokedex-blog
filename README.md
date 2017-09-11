@@ -9,6 +9,7 @@ We are going to be using the [PokeApi](http://pokeapi.co/) to get all our resour
 * **PART 3** we will build the Pokemon view
 * **PART 4** we will build the Detail view
 * **PART 5** we will connect all the views
+* **PART 6** wrap up
 
 Without further ado, lets start coding.
 
@@ -194,7 +195,7 @@ React is all about building components so we will be making some wireframes that
 
 Our main app layout will contain 2 components: the Pokemon view, and the Detail view.
 
-On the pokemon view, the user can navigate through a list of the first generation pokemon. If the user clicks a pokemon, the detail view will display the selected pokemon's details including: name, id, type, sprite, and ability.
+On the pokemon view, the user can navigate through a list of the first generation pokemon. If the user clicks a pokemon, the detail view will display the selected pokemon's details including: name, id, type, and sprite.
 
 ![main](./screenshots/main.png)
 
@@ -323,7 +324,7 @@ Here are some comments on the styles we added:
 
 # PART 3
 
-To start in this point clone the branch 'part3' of this [repo](https://github.com/jdiejim/pokedex-blog)
+To start at this point clone the branch 'part3' of this [repo](https://github.com/jdiejim/pokedex-blog)
 
 ## Stateless Components
 
@@ -689,7 +690,7 @@ Wow! That was a lot, but trust me, it was worth it, and this is the only section
 
 # PART 4
 
-To start in this point clone the branch 'part4' of this [repo](https://github.com/jdiejim/pokedex-blog)
+To start at this point clone the branch 'part4' of this [repo](https://github.com/jdiejim/pokedex-blog)
 
 
 ## Detail View
@@ -732,7 +733,7 @@ import './styles/DetailView.css';
 const DetailView = () => {
   return (
     <section className="detail-view">
-      <img src={sprite} className='sprite-image'/>
+      <img className='sprite-image'/>
       <div className='data-wrapper'>
         <h1 className='data-name'></h1>
         <p className='data-char'></p>
@@ -769,6 +770,7 @@ Lets also add some style to our DetailView in the css file.
   background-color: #585858;
   border: 15px solid #DEDEDE;
   border-radius: 5px;
+  color: #585858;
 }
 
 .data-wrapper {
@@ -795,7 +797,7 @@ Lets also add some style to our DetailView in the css file.
 Notes on the style and elements:
 
 * sprite-image will contain the selected pokemon sprite
-* the data-char class refers to the characterstics of the pokemon (id, type, abilities)
+* the data-char class refers to the characterstics of the pokemon (id, name, type)
 
 Next go back to App and import DetailView. Finally, render it by placing it inside the parent element.
 
@@ -828,3 +830,273 @@ export default App;
 
 ![finalDetailView](./screenshots/finalDetailView.png)
 
+# PART 5
+
+In this part we will manage state in the App file and will fetch data from the poke api. Next we will pass the pokemon data to the Detail List to render it. 
+
+To start at this point clone the branch 'part5' of this [repo](https://github.com/jdiejim/pokedex-blog)
+
+## Passing Events
+
+First we will start working on a click event that will be passed down to the poke cells. This function will be in charge of fetching the api data.
+
+Go to App.js and create a new function called handleOnClick. Add an id parameter and console.log the id inside the function.
+
+```javascript
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+  }
+
+  handleOnClick(id) {
+    console.log(id)
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <PokeList />
+        <DetailView />
+      </div>
+    );
+  }
+}
+
+
+```
+
+We are going to pass this function to the PokeCells inside the PokeList. First lets add a new prop to the PokeList named handleOnClick and pass the handleOnClick function. 
+
+```javascript
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+  }
+
+  handleOnClick(id) {
+    console.log(id)
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <PokeList handleOnClick={this.handleOnClick} />
+        <DetailView />
+      </div>
+    );
+  }
+}
+
+```
+
+We included the **this** keyword since we are referencing the method of the App class. This is how you normally pass functions as props, however, if we pass this function to the PokeList we will lose the **this** context of the handleOnClick method. To fix this, we need to bind the current context of **this** with the handleOnClick method. On the constructor function re-assign the value of this.handleOnClick to this.handleOnClick.bind(this). Now the method will always have the context of the App in other components.
+
+```javascript
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+  handleOnClick(id) {
+    console.log(id)
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <PokeList handleOnClick={this.handleOnClick} />
+        <DetailView />
+      </div>
+    );
+  }
+}
+
+```
+
+The next step is to pass this prop to all the PokeCells. Go to the PokeList component, and deconstruct the handleOnClick method in the arguments.
+
+```javascript
+
+const PokeList = ({ handleOnClick }) => {
+  const cells = pokeClasses.map(pokeClass => {
+    return <PokeCell key={pokeClass.id} pokeClass={pokeClass} />
+  });
+
+  return (
+    <section className="poke-list">
+      {cells}
+    </section>
+  )
+}
+
+```
+
+Finally, add the handleOnClick method as a prop to the PokeCell components.
+
+```javascript
+
+const PokeList = ({ handleOnClick }) => {
+  const cells = pokeClasses.map(pokeClass => {
+    return (
+      <PokeCell 
+        key={pokeClass.id} 
+        pokeClass={pokeClass} 
+        handleOnClick={handleOnClick}
+      />
+    );
+  });
+
+  return (
+    <section className="poke-list">
+      {cells}
+    </section>
+  )
+}
+
+```
+
+Go to the PokeCell component, and deconstruct the handleOnClick method in the arguments.
+Then create an in-line onClick methon in the button and assign it an anonymous function that calls the handleOnClick funaction with the id parameter. This way each button that we click will console log the id of the PokeCell.
+
+```javascript
+
+const PokeCell = ({ pokeClass, handleOnClick }) => {
+  const { id, backgroundPosition } = pokeClass;
+  const style = { backgroundImage: `url(${sprites})`, backgroundPosition };
+
+  return <button onClick={() => handleOnClick(id)} style={style} className="poke-cell"></button>
+};
+
+```
+
+Run the app and click on a button. You will be able to see the id of the button clicked in the console.
+
+## Pokemon Helper
+
+We are going to create a Pokemon class to clean the data from the api. This way we are able to manage the pokemon data more easily.
+
+Go to the src directory and create a Pokemon.js file. Then populate the contents with this code:
+
+```javascript
+
+class Pokemon {
+  constructor(data) {
+    this.id = data.id;
+    this.name = data.name;
+    this.sprite = data.sprites.front_default;
+    this.type = data.types.map(e => e.type.name); // this returns an array of types   
+  }
+}
+
+export default Pokemon;
+
+```
+
+Now when we fetch the data we instantiate a new Pokemon object and pass in the fetched data.
+
+## Fetching the Data
+
+Open App.js and make a fetch request to the poke api inside the handleOnClick function. Use string interpolation to add a dynamic url path route with the id. Then resolve the promise and create a new instance of Pokemon with the fetched data. Finally console.log the pokemon object to see the pokemon that you clicked.
+
+```javascript
+
+handleOnClick(id) {
+    fetch(`http://pokeapi.co/api/v2/pokemon/${id}/`)
+      .then(res => res.json())
+      .then(data => {
+        const pokemon = new Pokemon(data);
+        
+        console.log(pokemon)
+      })
+      .catch(err => console.log(err));
+  }
+
+```
+
+## State
+
+We successfully fetched our pokemon data, however we need to pass this data to the DetailView in order to display it. The challenge here is to take the pokemon object out of the resolved promise and pass it down to the DetailView. To do this we are going to store the pokemon object in the App's state, and then pass it to the DetailView. 
+
+First, lets add to the state a pokemon property with the value of an empty object.
+
+```javascript
+
+constructor() {
+    super();
+    this.state = {
+      pokemon: {}
+    };
+
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+  ```
+
+  In React, everytime we want to update state, we need to call a function called setState that takes an object as an argument. In this object we need to specify the key we want to update and assign it the new value. This function not only updates the state, it also triggers a re-render of all the children components. To add the pokemon data to the state, lets place the setState function on the handleOnClick function where we resolve the promise in our fetch request.
+
+  ```javascript
+
+  handleOnClick(id) {
+    fetch(`http://pokeapi.co/api/v2/pokemon/${id}/`)
+      .then(res => res.json())
+      .then(data => {
+        const pokemon = new Pokemon(data);
+
+        this.setState({ pokemon });
+      })
+      .catch(err => console.log(err));
+  }
+
+  ``` 
+
+  No we have access to the pokemon data and we can pass it to the DetailView component as a prop.
+
+  ```javascript
+
+  render() {
+    return (
+      <div className="App">
+        <PokeList handleOnClick={this.handleOnClick} />
+        <DetailView pokemon={this.state.pokemon} />
+      </div>
+    );
+  }
+
+  ```
+
+## Displaying the Data
+
+Now that we passed the pokemon object to the DetailView component we can display the data on the respective elements. First lets deconstruct the pokemon object in the arguments, and then we can descontruct the remaining data from the pokemon object.
+
+```javascript
+
+const DetailView = ({ pokemon }) => {
+  const { id, name, sprite, type } = pokemon;
+
+  return (
+    <section className="detail-view">
+      <img src={sprite} className='sprite-image' alt="sprite"/>
+      <div className='data-wrapper'>
+        <h1 className='data-name'>ID: {id} {name}</h1>
+        <p className="data-char">Type: {type}</p>
+      </div>
+    </section>
+  )
+}
+
+```
+
+We are done! Run the app and click on your favorite pokemon to see more information about it.
+
+![pokedex](./screenshots/pokedex.png)
