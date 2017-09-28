@@ -4,7 +4,7 @@ I love building web apps with React. However, learning how to use the library an
 
 We are going to be using the [PokeApi](http://pokeapi.co/) to get all our pokemon data and sprites.
 
-* **PART 1** describes all the file setup
+* **PART 1** describes the file setup
 * **PART 2** we will begin making our wireframes and main layout
 * **PART 3** we will build the Pokemon view
 * **PART 4** we will build the Detail view
@@ -187,13 +187,15 @@ This will start our application in the browser in development mode. Now every ti
 
 # PART 2
 
+In Part 2 of this tutorial we are going to wireframe our app and start setting our main layout. To start at this point clone the branch “basic” of this [repo](https://github.com/jdiejim/pokedex-blog).
+
 ## WireFrame
 
-React is all about building components so we will be making some wireframes that describe each of the components we need to build.
+React is all about building components so it is a good idea to make wireframes to map all of the components we need to build.
 
 Our main app layout will contain 2 components: the Pokemon view, and the Detail view.
 
-On the pokemon view, the user can navigate through a list of the first generation pokemon. If the user clicks a pokemon, the detail view will display the selected pokemon's details including: name, id, type, and sprite.
+The Pokemon View will contain a scrollable PokeList component that wraps 151 buttons (PokeCell) of the first generation Pokemon. When a user clicks a PokeCell, the Detail View will display the selected Pokemon’s information and sprite.
 
 ![main](./screenshots/main.png)
 
@@ -206,20 +208,19 @@ The pokemon view will contain a scrollable **poke list component** that wraps al
 ### Detail View
 
 The detail view will be only be its own component containing different elements.
-
+ 
 ![detailView](./screenshots/detailView.png)
 
-## Main Layout
-
-Now that we are done with our wireframe and our project setup lets begin setting the main app component.
+Now that we are done with our wireframe lets begin setting the main app component.
 
 ## Component Types
 
 There are 2 basic types of React components: Stateful and Stateless
+StateFul components, as the name describes it, have their own state. In our application, the App component is going to be a stateful because it will hold state of Pokemon data (more on this later). 
 
-StateFul, as the name describes it, are componets that have their own state. In our case, App is a stateful component. Lets see in detail how to build the App component. Open App.js and delete all of the contents inside. We are going to code it from start.
+Lets start building our App component from scratch. Open **App.js** and delete all of the contents inside.
 
-The first step is to import the react package, and deconstruct the Component class.
+The first step is to import the React package, and deconstruct the Component class from it.
 
   ```javascript
 
@@ -227,8 +228,10 @@ import React, { Component } from 'react';
 
   ```
 
-  Then you need to create a new class App that extends Component. All stateful components require 2 main methods: the constructor and the 
-  super();render methods.
+  Then you need to create a new class App that extends Component. All stateful components require 2 main methods: 
+  
+  1. constructor: where we initialize our state
+  2. render: where we write our jsx
 
   In the constructor we always have to call the super() function since we are extending from the component class. Additionaly, we also need to declare our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
 
@@ -243,7 +246,7 @@ import React, { Component } from 'react';
 
   ```
 
-Next add the render method. This method always returns jsx syntax, which is a mix between javscript and html. The render method only can return one element so we need to create a parent element and nest children inside. If we are returning a nested element we need to wrap it with a parentheses. 
+Next add the render method. This method always returns jsx syntax, which is a mix of javaScript and html. The render method can only return one element so we need to create a parent element and nest children inside. If we are returning a nested element we need to wrap it with a parentheses. 
 
 Anything after the return keyword has to be jsx. That means we can do regular javascript before the return keyword.
 
@@ -324,9 +327,11 @@ Here are some comments on the styles we added:
 
 To start at this point clone the branch 'part3' of this [repo](https://github.com/jdiejim/pokedex-blog)
 
-## Stateless Components
+## PokeList
 
-In **src** Go to your componets folder and create a PokeList.js file. Then go to your stlyes folder and create a PokeList.css file.
+This type of components are just regular javaScript functions that return jsx.
+
+Go to your **components** folder and create a **PokeList.js** file. Then go to your styles folder and create a **PokeList.css** file.
 
 ```
 
@@ -335,17 +340,15 @@ touch PokeList.js styles/PokeList.css
 
 ```
 
-Stateless components have a shorter setup. Since they don't have state we don't use the Component class so we only need to import the React package.
+**Stateless components** have a shorter setup. This type of components are just regular javaScript functions that return jsx. Since we don’t need the class keyword, we can avoid importing the Component class. However, we still need to import the React package.
 
-```javascript
+Open your PokeList.js and follow this steps:
 
-import React from 'react';
-
-```
-
-Then, instead of creating a new class, we create a regular arrow function, and return the jsx that we want to render. 
-
-Then, lets import the styles at the top of the file, and export our PokeList function.
+1. Import the React package
+2. Import the PokeList styles
+3. Create a new function named PokeList
+4. Return an empty section with className poke-list
+5. export the newly created function
 
 ``` javascript
 
@@ -363,7 +366,7 @@ const PokeList = () => {
 export default PokeList;
 
 ```
-Lets add some style to our PokeList in the css file
+Go to the **PokeList.css** file and add the following styles:
 
 ```css
 
@@ -383,13 +386,16 @@ Lets add some style to our PokeList in the css file
 
 ```
 
-Notes on style:
+Here are some comments on the styles we added:
 
-* We are using display flex againg to take advantage of the wrap functioanlity since we are going to wrap cell buttons inside.
+* We are using display flex to take advantage of the wrap functionality since we are going to wrap all the PokeCell buttons inside.
 * We set the width to 50% to fill the left half of the app component
-* we also included overflow scroll because not all of the pokecells are going to be displayed at once.
+* We also included overflow scroll because not all of the PokeCells are going to be displayed at once.
 
-Finally go back to App.js and import the PokeList component. To render it, you need to place it inside the parent element in the render method as a self closing html tag. This is other feature React and jsx gives us. All the components you want to render are place like html tags. Cool right!
+Go back to App.js and import the PokeList component. 
+
+To render our PokeList we are going to use another feature React gives us. All the components you want to render are placed as html tags. Place your PokeList component as a self closing html tag inside the parent element. Start your application and see the results. Cool right!
+
 
 ```javascript
 
@@ -420,9 +426,9 @@ export default App;
 
 ## PokeCell
 
-The next step is to populate our list with pokecells, but first we need to build our PokeCell component. This component will act as a template for all of the 150 pokemons that we are going to render in PokeList.
+We are going to build a PokeCell component that will act as a template for each of the 150 Pokemon that we are going to render in PokeList.
 
-In **src** Go to your componets folder and create a PokeCell.js file. Then go to your stlyes folder and create a PokeCell.css file.
+Go to your **components** folder and create a **PokeCell.js** file. Then go to your styles folder and create a **PokeCell.css** file.
 
 ```
 
@@ -431,7 +437,13 @@ touch PokeCell.js styles/PokeCell.css
 
 ```
 
-Open PokeCell.js and add the stateless setup. Since we are returning only one element we can avoid the parentheses.
+Open your PokeCell.js and follow this steps:
+
+1. Import the React package
+2. Import the PokeCell styles
+3. Create a new function named PokeCell
+4. Return an empty button with className poke-cell
+5. Export the newly created function
 
 ```javascript
 
@@ -446,32 +458,8 @@ export default PokeCell;
 
 ```
 
-Then import it in PokeList.js and render some cells in the list by placing them inside the parent element as an html elements.
 
-```javascript
-
-import React from 'react';
-import PokeCell from './PokeCell';
-import './styles/PokeList.css';
-
-const PokeList = () => {
-  return (
-    <section className="poke-list">
-      <PokeCell />
-      <PokeCell />
-      <PokeCell />
-      <PokeCell />
-      <PokeCell />
-      <PokeCell />
-    </section>
-  )
-}
-
-export default PokeList;
-
-```
-
-Finally, lets add some style to our PokeCells in the css file.
+Go to the PokeCell.css file and add the following styles:
 
 ```css
 
@@ -492,30 +480,52 @@ Notes on PokeCell style:
 
 * We set the background-repeat to no-repeat for the background image we are going to put later in the tutorial
 
+Finally import the PokeCell component into PokeList.js, and render some cells in the list by placing them inside the parent element as an html elements.
+
+```javascript
+
+import React from 'react';
+import PokeCell from './PokeCell';
+import './styles/PokeList.css';
+
+const PokeList = () => {
+  return (
+    <section className="poke-list">
+      <PokeCell />
+      <PokeCell />
+      <PokeCell />
+      <PokeCell />
+      <PokeCell />
+      <PokeCell />
+    </section>
+  )
+}
+
+export default PokeList;
+
+```
+
 ## Sprites and Array Rendering
 
 This section might be a little confusing, but I promise it is worth it. 
 
-For this part of the tutorial please download the following resources: [sprites](https://github.com/jdiejim/pokedex-blog/blob/master/src/assets/sprites.png) and [pokeClasses](https://github.com/jdiejim/pokedex-blog/blob/master/src/pokeClasses.js)
+For this part of the tutorial please click and download the following resources: 
 
-The sprites image is a collection of images of the first 151 pokemon. We are going to display each sprite in each PokeCell using css and background position. This background positions can be found in the pokeClasses.js file that I provided.
+* [Sprites](https://github.com/jdiejim/pokedex-blog/blob/master/src/assets/sprites.png)
+* [pokeClasses](https://github.com/jdiejim/pokedex-blog/blob/master/src/pokeClasses.js)
 
-The pokeClasses.js file is an array of objects containing the pokemon id and the background position of each sprite.
+The sprites image is a collection of the first 151 Pokemon sprites. 
+
+We are going to display each sprite using the PokeCell component and some css background properties (background-image, background-position).
+
+The background positions can be found in the pokeClasses.js file, which has an array of objects containing the Pokemon id and position for each sprite.
+
+Go to the src directory and follow the next steps:
+
+1. Place the pokeClasses.js file inside the src directory.
+2. Create an assets folder inside this directory, and place the sprites image inside the newly created assets folder.
 
 Ok. Lets move on.
-
-Create an **assets** directory and place it in **src**. Then place the sprites image inside assets
-
-```
-
-cd src
-mkdir assets
-
-```
-
-Then place the pokeClasses.js file inside **src**.
-
-Now for the fun part.
 
 Go to PokeList.js and import the pokeClasses array.
 
@@ -536,13 +546,36 @@ const PokeList = () => {
 export default PokeList;
 
 ```
-We are going to map the pokeClasses inside our function to convert each element into a PokeCell component! Then we will assign the new array from the map to a new variable called cells.
 
-In React, components can pass values to their children as props. Props look like html tag attributes and are placed between the opening and clossing tags. We can name the props any way we want, and pass any variable type (string, number, object, function).
+Now for the fun part.
 
-In this case we need to pass the pokeClass information as props to each of the PokeCells that we are creating. The firts prop we need to pass is called keys. This is the only required prop react tells us to include everytime we create an array of components. This key prop needs to have a unique value since React uses it on the background to make optimizations. Lucky for us, each pokeClass contains an id value.
+We need to render in our list all the 151 PokeCells with the correct data in them. To avoid writing all of them manually, we can use javaScript to our advantage. 
 
-The next prop we are going to pass is called pokeClass, and is the current element of the pokeClasses array. One important thing to mention is that everytime we want to include regular javascript in the jsx section we need to wrap it with curly braces.
+Back in our code, create a new array of PokeCells with the information of each element in the pokeClasses array.
+
+To accomplish this, we are going to apply the array prototype map to our pokeClasses array and for each element of the array return a PokeCell tag. Then store this array of PokeCells in a new variable called cells.
+
+```javascript
+
+const cells = pokeClasses.map(pokeClass => <PokeCell />)
+
+```
+
+In React, components can pass values to their children as props. Props look like html attributes and are placed between the opening and closing tags. We can name props any way we want, and pass any variable type (string, number, object, function) through them.
+
+We are going to use props to pass the pokeClass object to each PokeCell.
+
+To accomplish this, add a new prop named pokeClass inside the PokeCell tag in the mapped array. Then assign it the pokeClass argument of the map callback. 
+
+One thing I forgot to mention is that every time we want to include regular javaScript in a jsx section we need to wrap it with curly braces.
+
+```javascript
+
+const cells = pokeClasses.map(pokeClass => <PokeCell pokeClass={pokeClass} />)
+
+```
+Finally, every time we create an array of components, React requires us to include a prop named key with a unique value in it. Lucky for us, each pokeClass contains an id value, which we can use as our unique value. React uses this prop to make optimizations in the background.
+
 The end result will look like this:
 
 ```javascript
@@ -564,7 +597,7 @@ export default PokeList;
 
 ```
 
-Now that we have our cells array of PokeCell components we can render it by placing the cells variable inside the parent element wrapped in curly braces:
+Now that we have our PokeCells array, we can render it by placing the cells variable inside the parent element wrapped with curly braces (since arrays are part of javaScript)
 
 ```javascript
 
@@ -586,13 +619,15 @@ export default PokeList;
 
 ```
 
-Cool right?! Insead of manually placing each PokeCell inside the parent element, we can just place the array and React appends each of the PokeCells to the list component.
+Cool right! Instead of manually placing each PokeCell inside the parent element, we can just place the cells array, and React will append each of the PokeCells to the list component.
 
 ## Rendering Sprites
 
-Remeber that we passed to each of the PokeCell componets its own pokeClass. Now we can use this data to determine the position of the sprite in the sprite image, and render the image on each cell.
+Now that we passed the pokeClass object to each PokeCell, we can use this data to determine the position of each sprite in the sprite image, and render the sprite in the background of each button.
 
-Go to the PokeCell.js file and pass in props as an argument.
+Open your **PokeCell.js** file and follow these steps:
+
+Since we are passing props to PokeCell, we need to include a props argument in the PokeCell function.
 
 ```javascript
 
@@ -602,17 +637,7 @@ const PokeCell = (props) => {
 
 ```
 
-Since we know that props contains a pokeClass object, we can deconstruct it from the props argument.
-
-```javascript
-
-const PokeCell = ({ pokeClass }) => {
-  return <button className="poke-cell"></button>
-};
-
-```
-
-Then lets deconstuct the properties from the pokeClass itself and assign them to their own variable.
+Because we know that the props object contains the pokeClass object, we can deconstruct the props argument to easily access the pokeClass object. Finally we can deconstruct all the properties from the pokeClass itself and assign them to their own variable using the ES6 feature.
 
 ```javascript
 
@@ -624,7 +649,7 @@ const PokeCell = ({ pokeClass }) => {
 
 ```
 
-Next, import the sprites image at the top of the file. 
+Then, import the sprites image at the top of the file.
 
 ```javascript
 
@@ -632,7 +657,7 @@ import sprites from '../assets/sprites.png';
 
 ```
 
-To add the sprite as a background image, we are going to use in-line styling on the buttotn element.
+To add the sprite as a background image, we are going to use **in-line styling** on the button element.
 
 First create a new styles object with two properties: backgroundImage and backgroundPosition. Notice that the css properties are written in camelCase instead of the regular format. This is because we are using javascript to add the in-line styling.
 
@@ -661,9 +686,21 @@ For the backgroundImage key, replace the empty string with the following code:
 
 ```
 
-Here we are placing the imported sprite image into the css url function. If you console log the sprites image, you will see that it will log the path of the image. We have to do this because this is how React is able to recognize the path of the image.
+Here we are placing the imported sprite image into the css url function using the string interpolation feature from ES6.
 
-Next we can include the backgroundPosition property by assigning it the value of the variable we deconstructed earlier from pokeClass. Since they share the same name, we can just delete the string and semicolon. Finally we can add the in-line style object to the html element like this:
+              If you console log the sprites image, you will see that it will log the path of the image. We have to do this because this is how React recognizes the path of the image.
+
+For the backgroundPosition property, replace the empty string with the following code:
+
+```javascript
+
+  const style = { backgroundImage: `url(${sprites})`, backgroundPosition };
+
+```
+
+Because the name of the backgroundPosition property in the style object matches with the backgroundPosition variable we deconstructed from the pokeClass object, we can use the ES6 object literal shorthand feature to only include the name of the property.
+
+Finally, add the in-line style object to the html element like this:
 
 ```javascript
 
@@ -682,7 +719,7 @@ export default PokeCell;
 
 ```
 
-Wow! That was a lot, but trust me, it was worth it, and this is the only section that is kind of confusing. Ok, go ahead and check the browser to see the result.
+Wow! That was a lot, but trust me it was worth it. This is the only section that is kind of confusing. Go ahead and start your application to see the result.
 
 ![finalPokeView](./screenshots/finalPokeView.png)
 
