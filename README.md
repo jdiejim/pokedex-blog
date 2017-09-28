@@ -730,7 +730,7 @@ To start at this point clone the branch 'part4' of this [repo](https://github.co
 
 ## Detail View
 
-In **src** Go to your componets folder and create a DetailView.js file. Then go to your stlyes folder and create a DetailView.css file.
+Go to your components folder and create a DetailView.js file. Then go to your styles folder and create a DetailView.css file.
 
 ```
 
@@ -739,26 +739,15 @@ touch DetailView.js styles/DetailView.css
 
 ```
 
-Next, setup a stateless comopents and call it DetailView.
+Open your DetailView.js and follow these steps:
 
-``` javascript
+1. Import the React package
+2. Import the DetailView styles
+3. Create a new function named DetailView
+4. Return an empty section with className detail-view
+5. Add elements to display the data and image.
+6. Export the newly created function
 
-import React from 'react';
-import './styles/DetailView.css';
-
-const DetailView = () => {
-  return (
-    <section className="detail-view">
-
-    </section>
-  )
-}
-
-export default DetailView;
-
-```
-
-Add some elements to display the data and image.
 
 ```javascript
 
@@ -829,12 +818,12 @@ Lets also add some style to our DetailView in the css file.
 
 ```
 
-Notes on the style and elements:
+Here are some comments on the styles we added:
 
-* sprite-image will contain the selected pokemon sprite
-* the data-char class refers to the characterstics of the pokemon (id, name, type)
+* Sprite-image will contain the selected Pokemon sprite
+* The data-char class refers to the characteristics of the Pokemon (id, name, type)
 
-Next go back to App and import DetailView. Finally, render it by placing it inside the parent element.
+Go to App.js and import the DetailView component. Render it by placing the DetailView component as a self closing html tag inside the parent element on the render function.
 
 ```javascript
 
