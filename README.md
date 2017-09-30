@@ -856,7 +856,7 @@ export default App;
 
 # PART 5
 
-This is the last part of the tutorial! In this part we are going to manage **State**, and we will fetch data from the poke api. Finally, we will use the Pokemon data to populate the **DetailView**. To start at this point clone the branch “part5” of this [repo](https://github.com/jdiejim/pokedex-blog).
+This is the last part of the tutorial! In this part, we are going to manage **State**, and we will fetch data from the poke api. Finally, we will use the Pokemon data to populate the **DetailView**. To start at this point clone the branch “part5” of this [repo](https://github.com/jdiejim/pokedex-blog).
 
 ## Passing Events
 
@@ -1040,7 +1040,7 @@ handleOnClick(id) {
 
 Now that we successfully fetched our Pokemon data, we need to pass this data to the **DetailView** to display it.
 
-To accomplish this, we first need to take the Pokemon object out of the resolved promise, and store it in our App’s state.
+To accomplish this, we first need to take the Pokemon object out of the resolved promise and store it in our App’s state.
 
 On the constructor function of the App component, add a new key to the state object with the value of an empty object.
 
@@ -1057,7 +1057,9 @@ On the constructor function of the App component, add a new key to the state obj
 
   ```
 
-In React, everytime we want to update state, we need to call a function called setState that takes an object as an argument. In this object we need to specify the key we want to update and assign it the new value. This function not only updates the state, it also triggers a re-render of all the children components. To add the pokemon data to the state, lets place the setState function on the handleOnClick function where we resolve the promise in our fetch request.
+To update the pokemon state, React gives us a function called **setState**. This function takes an object as an argument where we need to specify the key we want to update and assign it a new value. Every time this function is called, React re-renders all the child components.
+
+To add the Pokemon data to state, replace the console.log with the **setState** function inside the **handleOnClick** function, and pass it the new Pokemon object we created.
 
   ```javascript
 
