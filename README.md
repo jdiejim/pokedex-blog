@@ -2,23 +2,23 @@
 
 I love building web apps with React. However, learning how to use the library and getting used to the React thinking can be difficult. I believe that personal projects are the best way to learn new things, and thus started to build a Pokedex with React. I had a lot of fun building it and learned a lot, so I decided to make this beginners workshop for new developers interested in learning how to use React.
 
-We are going to be using the [PokeApi](http://pokeapi.co/) to get all our pokemon data and sprites.
+We are going to be using the [PokeApi](http://pokeapi.co/) to get all our Pokemon data and sprites.
 
-* **PART 1** describes the file setup
-* **PART 2** we will begin making our wireframes and main layout
-* **PART 3** we will build the Pokemon view
-* **PART 4** we will build the Detail view
-* **PART 5** we will fetch all the data and connect all our views
+* **Part 1:** we will set up the file
+* **Part 2:** we will begin making our wireframes and main layout
+* **Part 3:** we will build the PokeList view
+* **Part 4:** we will build the Detail view
+* **Part 5:** we will fetch all the data and connect all our views
 
-# Without further ado, lets start coding.
+# Without further ado, let's start coding.
 
 # PART 1
 
-If you want to skip the initial setup, clone the “basic” branch of this [repo](https://github.com/jdiejim/pokedex-blog). Otherwise, lets continue with the installation.
+If you want to skip the initial setup, clone the “basic” branch of this [repo](https://github.com/jdiejim/pokedex-blog). Otherwise, let's continue with the installation.
 
 ## Create React App Installation
 
-First you need to install [Node](https://nodejs.org/en/) version ≥ 6 on your machine.
+First, you need to install [Node](https://nodejs.org/en/) version ≥ 6 on your machine.
 Once installed, proceed to install the [create-react-app](https://github.com/facebookincubator/create-react-app) package globally with npm.
 
 ```
@@ -60,7 +60,7 @@ cd src
 
 ```
 
-First remove the logo.svg file since we are no longer going to use it. 
+First, remove the logo.svg file since we are no longer going to use it. 
 
 ```
 
@@ -155,9 +155,9 @@ p {
 
 ```
 
-The **index.css** file will contain all our top level styles. In this case we want all the document’s elements to have box sizing of border box, and we also want to remove the margin for al h1, h2, h3, h4, p tags.
+The **index.css** file will contain all our top-level styles. In this case we want all the document’s elements to have box-sizing of border box, and we also want to remove the margin for al h1, h2, h3, h4, p tags.
 
-Finally replace all the contents of the **index.js** file with the following code:
+Finally, replace all the contents of the **index.js** file with the following code:
 
 ```javascript
 
@@ -173,9 +173,9 @@ registerServiceWorker();
 ```
 
 The only change we made here was changing the path of the App component.
-We are not going to add anything else to **index.js**. However, its important to know what is happening here. This file basically is telling the DOM to render the App component in the element with id of “root”. Our App component will contain all of our components that we are going to build.
+We are not going to add anything else to **index.js**. However, it's important to know what is happening here. This file basically is telling the DOM to render the App component in the element with id of “root”. Our App component will contain all of our components that we are going to build.
 
-Great! We are done with the setup. Lets try it out. To star our application write this command in your terminal:
+Great! We are done with the setup. Let's try it out. To start our application write this command in your terminal:
 
 ```
 
@@ -216,11 +216,11 @@ Now that we are done with our wireframe lets begin setting the main app componen
 ## Component Types
 
 There are 2 basic types of React components: Stateful and Stateless
-StateFul components, as the name describes it, have their own state. In our application, the App component is going to be a stateful because it will hold state of Pokemon data (more on this later). 
+StateFul components, as the name describes it, have their own state. In our application, the App component is going to be stateful because it will hold state of Pokemon data (more on this later). 
 
-Lets start building our App component from scratch. Open **App.js** and delete all of the contents inside.
+Let's start building our App component from scratch. Open **App.js** and delete all of the contents inside.
 
-The first step is to import the React package, and deconstruct the Component class from it.
+The first step is to import the React package and deconstruct the Component class from it.
 
   ```javascript
 
@@ -233,7 +233,7 @@ import React, { Component } from 'react';
   1. constructor: where we initialize our state
   2. render: where we write our jsx
 
-  In the constructor we always have to call the super() function since we are extending from the component class. Additionaly, we also need to declare our initial state. For now leave it as an empty object. We are going to use this later in the tutorial.
+  In the constructor, we always have to call the super() function since we are extending from the component class. Additionaly, we also need to declare our initial state. For now, leave it as an empty object. We are going to use this later in the tutorial.
 
   ```javascript
 
@@ -246,7 +246,7 @@ import React, { Component } from 'react';
 
   ```
 
-Next add the render method. This method always returns jsx syntax, which is a mix of javaScript and html. The render method can only return one element so we need to create a parent element and nest children inside. If we are returning a nested element we need to wrap it with a parentheses. 
+Next, add the render method. This method always returns jsx syntax, which is a mix of javaScript and html. The render method can only return one element so we need to create a parent element and nest children inside. If we are returning a nested element we need to wrap it with parentheses.
 
 Anything after the return keyword has to be jsx. That means we can do regular javascript before the return keyword.
 
@@ -269,7 +269,7 @@ Anything after the return keyword has to be jsx. That means we can do regular ja
 
   ```
 
-Finally, we need to import our stylesheet at the top to add the styles of our component, and export the whole class so we can use it in other files.
+Finally, we need to import our stylesheet at the top to add the styles of our component and export the whole class so we can use it in other files.
 
 ```javascript
 
@@ -295,7 +295,7 @@ export default App;
 
 ```
 
-Open your App.css file and add this styles to it:
+Open your **App.css** file and add the following styles to it:
 
 ```css
 
@@ -319,7 +319,7 @@ Here are some comments on the styles we added:
 * We use display flex to separate the 2 views we are going to be building
 * We fixed our width and height for our desktop display
 * We apply some top and bottom margin to separate the view from the corners and auto left and right to place it in the middle
-* Finally we applied a red color to the background
+* Finally, we applied a red color to the background
 
 ![mainLayout](./screenshots/mainLayout.png)
 
@@ -329,9 +329,7 @@ To start at this point clone the branch 'part3' of this [repo](https://github.co
 
 ## PokeList
 
-This type of components are just regular javaScript functions that return jsx.
-
-Go to your **components** folder and create a **PokeList.js** file. Then go to your styles folder and create a **PokeList.css** file.
+Go to your components folder and create a **PokeList.js** file. Then go to your styles folder and create a **PokeList.css** file.
 
 ```
 
@@ -340,7 +338,7 @@ touch PokeList.js styles/PokeList.css
 
 ```
 
-**Stateless components** have a shorter setup. This type of components are just regular javaScript functions that return jsx. Since we don’t need the class keyword, we can avoid importing the Component class. However, we still need to import the React package.
+**Stateless components** have a shorter setup. These type of components are just regular javaScript functions that return jsx. Since we don’t need the class keyword, we can avoid importing the Component class. However, we still need to import the React package.
 
 Open your PokeList.js and follow this steps:
 
@@ -388,13 +386,13 @@ Go to the **PokeList.css** file and add the following styles:
 
 Here are some comments on the styles we added:
 
-* We are using display flex to take advantage of the wrap functionality since we are going to wrap all the PokeCell buttons inside.
+* We are using display flex to take advantage of the wrap functionality since we are going to wrapping all the PokeCell buttons inside.
 * We set the width to 50% to fill the left half of the app component
 * We also included overflow scroll because not all of the PokeCells are going to be displayed at once.
 
 Go back to App.js and import the PokeList component. 
 
-To render our PokeList we are going to use another feature React gives us. All the components you want to render are placed as html tags. Place your PokeList component as a self closing html tag inside the parent element. Start your application and see the results. Cool right!
+To render our PokeList we are going to use another feature React gives us. All the components you want to render are placed as html tags. Place your PokeList component as a self-closing html tag inside the parent element. Start your application and see the results. Cool right!
 
 
 ```javascript
@@ -480,7 +478,7 @@ Notes on PokeCell style:
 
 * We set the background-repeat to no-repeat for the background image we are going to put later in the tutorial
 
-Finally import the PokeCell component into PokeList.js, and render some cells in the list by placing them inside the parent element as an html elements.
+Finally, import the PokeCell component into PokeList.js, and render some cells in the list by placing them inside the parent element as an html elements.
 
 ```javascript
 
@@ -525,7 +523,7 @@ Go to the src directory and follow the next steps:
 1. Place the pokeClasses.js file inside the src directory.
 2. Create an assets folder inside this directory, and place the sprites image inside the newly created assets folder.
 
-Ok. Lets move on.
+Ok. Let's move on.
 
 Go to PokeList.js and import the pokeClasses array.
 
@@ -623,7 +621,7 @@ Cool right! Instead of manually placing each PokeCell inside the parent element,
 
 ## Rendering Sprites
 
-Now that we passed the pokeClass object to each PokeCell, we can use this data to determine the position of each sprite in the sprite image, and render the sprite in the background of each button.
+Now that we passed the pokeClass object to each PokeCell, we can use this data to determine the position of each sprite in the sprite image and render the sprite in the background of each button.
 
 Open your **PokeCell.js** file and follow these steps:
 
@@ -637,7 +635,7 @@ const PokeCell = (props) => {
 
 ```
 
-Because we know that the props object contains the pokeClass object, we can deconstruct the props argument to easily access the pokeClass object. Finally we can deconstruct all the properties from the pokeClass itself and assign them to their own variable using the ES6 feature.
+Because we know that the props object contains the pokeClass object, we can deconstruct the props argument to easily access the pokeClass object. Finally, we can deconstruct all the properties from the pokeClass itself and assign them to their own variable using the ES6 feature.
 
 ```javascript
 
@@ -657,7 +655,7 @@ import sprites from '../assets/sprites.png';
 
 ```
 
-To add the sprite as a background image, we are going to use **in-line styling** on the button element.
+To add the sprite as a background image, we are going to use **inline styling** on the button element.
 
 First create a new styles object with two properties: backgroundImage and backgroundPosition. Notice that the css properties are written in camelCase instead of the regular format. This is because we are using javascript to add the in-line styling.
 
@@ -823,7 +821,7 @@ Here are some comments on the styles we added:
 * Sprite-image will contain the selected Pokemon sprite
 * The data-char class refers to the characteristics of the Pokemon (id, name, type)
 
-Go to App.js and import the DetailView component. Render it by placing the DetailView component as a self closing html tag inside the parent element on the render function.
+Go to App.js and import the DetailView component. Render it by placing the DetailView component as a self-closing html tag inside the parent element on the render function.
 
 ```javascript
 
